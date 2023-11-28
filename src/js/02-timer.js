@@ -23,34 +23,18 @@ const options = {
     if (selectedDates[0] < Date.now()) {
       refs.buttonEl.disabled = true;
       Notiflix.Notify.failure('Please choose a date in the future');
-    }
-    if (selectedDates[0] > Date.now()) {
+    } else if (selectedDates[0] > Date.now()) {
       chosenDate = selectedDates[0];
-
       refs.buttonEl.disabled = false;
     }
   },
 };
-
 flatpickr(refs.inputEl, options);
-console.log(chosenDate);
 
 refs.buttonEl.addEventListener('click', onButtonElClick);
 
-function convertMs(ms) {
-  const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  return { days, hours, minutes, seconds };
-}
-
 function onButtonElClick(event) {
+  refs.buttonEl.disabled = true;
   timerId = setInterval(() => {
     const { days, hours, minutes, seconds } = convertMs(
       chosenDate - Date.now()
@@ -65,6 +49,20 @@ function onButtonElClick(event) {
     refs.secondsEl.textContent = addLeadingZero(seconds);
   }, 1000);
 }
+
+function convertMs(ms) {
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  return { days, hours, minutes, seconds };
+}
+
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
