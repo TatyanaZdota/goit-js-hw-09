@@ -51,3 +51,4 @@ function createPromise(position, delay) {
     }, Number(refs.delay.value));
   });
 }
+console.log('hello');
