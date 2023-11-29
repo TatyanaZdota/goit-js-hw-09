@@ -18,7 +18,7 @@ function onFormElSubmit(event) {
   let amountNumber = Number(amount.value);
 
   for (let i = 1; i <= amountNumber; i++) {
-    createPromise(i, (delayNumber += stepNumber))
+    createPromise(i, delayNumber)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
@@ -29,6 +29,7 @@ function onFormElSubmit(event) {
           `❌ Rejected promise ${position} in ${delay}ms`
         );
       });
+    delayNumber += stepNumber;
   }
 }
 

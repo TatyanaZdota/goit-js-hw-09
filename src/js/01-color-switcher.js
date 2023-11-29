@@ -15,10 +15,12 @@ function onBtnStartClick(event) {
   timerId = setInterval(() => {
     document.body.style.background = getRandomHexColor();
     btnStart.disabled = true;
+    btnStop.disabled = false;
   }, 1000);
 }
 
 function onBtnStopClick(event) {
   clearInterval(timerId);
   btnStart.disabled = false;
+  btnStop.disabled = true;
 }
