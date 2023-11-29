@@ -49,6 +49,6 @@ function createPromise(position, delay) {
           delay,
         });
       }
-    }, Number(refs.delay.value));
+    }, delay);
   });
 }
